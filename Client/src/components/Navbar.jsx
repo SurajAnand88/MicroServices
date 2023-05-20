@@ -3,8 +3,20 @@ import React from "react";
 import axios from "axios";
 
 const Navbar = () => {
-  function downloadCsv() {
-    axios.get("http://localhost:8000/download");
+  async function downloadCsv() {
+    await axios
+      .get("http://localhost:8000/download", {
+        method: "GET",
+        responseType: "blob",
+      })
+      .then((res) => {
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        let link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "data.csv");
+        document.body.appendChild(link);
+        link.click();
+      });
   }
   return (
     <Flex
