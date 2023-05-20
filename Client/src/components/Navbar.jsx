@@ -1,7 +1,11 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 import React from "react";
+import axios from "axios";
 
 const Navbar = () => {
+  function downloadCsv() {
+    axios.get("http://localhost:8000/download");
+  }
   return (
     <Flex
       pos={"fixed"}
@@ -21,7 +25,9 @@ const Navbar = () => {
       >
         GoldStoneTech
       </Text>
-      <Button colorScheme="yellow">Download csv</Button>
+      <Button colorScheme="yellow" onClick={downloadCsv}>
+        Download csv
+      </Button>
     </Flex>
   );
 };

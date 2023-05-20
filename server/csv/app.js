@@ -1,8 +1,10 @@
 const express = require("express");
 const PORT = process.env.PORT || 3002;
+const fs = require("fs");
 const dotenv = require("dotenv");
 const connect = require("./connect");
 const Users = require("./Model/userSchema");
+const { createObjectCsvWriter } = require("csv-writer");
 const cors = require("cors");
 dotenv.config();
 
@@ -14,7 +16,21 @@ connect();
 app.get("/download", async (req, res) => {
   try {
     let users = await Users.find();
+    const csv = createObjectCsvWriter({
+      path: "data.csv",
+      header: Object.keys(users[0]),
+    });
+    csv.writeRecords(users).then(() => {
+      console.log("csv created successfully");
+
+      const data = fs.createReadStream("data.csv");
+
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader("Content-Disposition", "attachment; filename=data.csv");
+      data.pipe(res);
+    });
   } catch (error) {
+    console.error("An error occurred:", err);
     res.status(500).send(error.message);
   }
 });

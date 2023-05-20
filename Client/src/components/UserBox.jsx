@@ -30,8 +30,8 @@ const UserBox = ({ user, setData }) => {
   });
 
   async function editUser() {
-    let users = await axios.post(`http://localhost:3000/update`, editObj);
-    const newUser = await axios.get("http://localhost:3001/users");
+    let users = await axios.post(`http://localhost:8000/update`, editObj);
+    const newUser = await axios.get("http://localhost:8000/users");
     setData(newUser.data.users);
     onClose();
     toast({

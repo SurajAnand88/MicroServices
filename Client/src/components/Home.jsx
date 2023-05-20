@@ -7,7 +7,7 @@ const Home = () => {
   const [data, setData] = useState([]);
 
   async function getData() {
-    const users = await axios.get("http://localhost:3001/users");
+    const users = await axios.get("http://localhost:8000/users");
     setData(users.data.users);
   }
 
