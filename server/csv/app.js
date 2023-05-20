@@ -1,5 +1,5 @@
 const express = require("express");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const dotenv = require("dotenv");
 const connect = require("./connect");
 const Users = require("./Model/userSchema");
